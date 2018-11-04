@@ -1,47 +1,46 @@
 console.log("App.js is running");
-const template = (
-    <div>
-        <h1>Indecision App</h1>
-        <p>This is some info</p>
-    </div>
-);
-
-const user = {
-    name:'Michaeli',
-    age: 26,
-    location: 'NY'
+let app = {
+    title: 'Indecision App',
+    subtitle: 'Some info here',
+    options: []
 };
 
-function getLocation(location) {
-    if(location) {
-        return <p>Location: {location}</p>;
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    const option = e.target.elements.option.value;
+    if(option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
     }
-}
-let count = 0;
-const addOne = () => {
-    count++;
-    renderCounterApp();
-};
-const minusOne = () => {
-    count--;
-    renderCounterApp();
-};
-const reset = () => {
-    count = 0;
-    renderCounterApp();
+    renderForm();
 };
 
+const removeAll = () => {
+    app.options = [];
+    renderForm();
+};
 const appRoot = document.getElementById('app');
-
-const renderCounterApp = () => {
-    const template2 =(
+const renderForm = () => {
+    const template = (
         <div>
-            <h1>Count: {count}</h1>
-            <button onClick={addOne}> +1</button>
-            <button onClick={minusOne}> -1</button>
-            <button onClick={reset}> reset</button>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
+            <p>{app.options.length}</p>
+            <button onClick={removeAll}>Remove All</button>
+            <ol>
+                {
+                    app.options.map((option) => {
+                       return <li key={option}>{option}</li>;
+                    })
+                }
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option"/>
+                <button>Add Option</button>
+            </form>
         </div>
     );
-    ReactDOM.render(template2, appRoot);
+    ReactDOM.render(template, appRoot);
 };
-renderCounterApp();
+renderForm();
