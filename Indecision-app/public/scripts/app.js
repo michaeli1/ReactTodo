@@ -2,8 +2,8 @@
 
 console.log("App.js is running");
 var app = {
-    title: 'Indecision App',
-    subtitle: 'Some info here',
+    title: 'My Todo App',
+    subtitle: 'Here are the things to do',
     options: []
 };
 
@@ -17,6 +17,12 @@ var onFormSubmit = function onFormSubmit(e) {
     renderForm();
 };
 
+var showOption = function showOption() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum];
+    alert(option);
+    renderForm();
+};
 var removeAll = function removeAll() {
     app.options = [];
     renderForm();
@@ -42,9 +48,9 @@ var renderForm = function renderForm() {
             app.options.length > 0 ? 'Here are your options' : 'No options'
         ),
         React.createElement(
-            'p',
-            null,
-            app.options.length
+            'button',
+            { disabled: app.options.length === 0, onClick: showOption },
+            'What should I do?'
         ),
         React.createElement(
             'button',
