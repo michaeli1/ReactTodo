@@ -1,0 +1,18 @@
+.header {
+  background: $blue;
+  margin-bottom: $space3;
+  padding: $space1 0;
+  color: white;
+}
+
+.header__title {
+  font-size: $space2;
+  margin: 0;
+}
+
+.header__subtitle {
+  color: $light-white;
+  font-size: $space1;
+  font-weight: 500;
+  margin: 0;
+}
